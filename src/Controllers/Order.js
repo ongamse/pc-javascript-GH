@@ -15,10 +15,19 @@ class Order {
   }
 
   decryptData(encryptedText) {
-    const desCipher = crypto.createDecipheriv('des', encryptionKey);
-    return desCipher.update(encryptedText);
-  }
-  addToOrder(req, res) {
+	const crypto = require('crypto');
+	const { decrypt } = require('./utils/decrypt');
+
+	class Order {
+	  decryptData(encryptedText) {
+	    const encryptionKey = process.env.ENCRYPTION_KEY;
+	    if (!encryptionKey) {
+	      throw new Error('Encryption key is not set');
+	    }
+	    return decrypt('des', encryptionKey, encryptedText);
+	  }
+	}
+
     const order = req.body;
     console.log(req.body);
     if (req.session.orders) {
@@ -119,3 +128,4 @@ class Order {
 }
 
 module.exports = new Order();
+
