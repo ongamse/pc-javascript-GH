@@ -15,10 +15,7 @@ class Order {
   }
 
   decryptData(encryptedText) {
-    const desCipher = crypto.createDecipheriv('des', encryptionKey);
-    return desCipher.update(encryptedText);
-  }
-  addToOrder(req, res) {
+
     const order = req.body;
     console.log(req.body);
     if (req.session.orders) {
@@ -119,3 +116,4 @@ class Order {
 }
 
 module.exports = new Order();
+
